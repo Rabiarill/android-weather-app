@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">android-weather-app</string>
+    <string name="app_name">Saint Weather</string>
+    <string name="city">City</string>
 </resources>
