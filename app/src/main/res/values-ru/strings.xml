@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Saint Weather</string>
+    <string name="city">Город</string>
+    <string name="feels_like">По ощущениям: </string>
+    <string name="wind_speed">Скорость ветра: </string>
+    <string name="humidity">Скорость ветра: </string>
+</resources>
