@@ -2,6 +2,8 @@
     <string name="app_name">Saint Weather</string>
     <string name="city">City</string>
     <string name="feels_like">Feels like:</string>
-    <string name="wind_speed">Wind speed</string>
-    <string name="humidity">Humidity: </string>
+    <string name="wind_speed">Wind speed:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="_25_c" translatable="false">25°C</string>
+    <string name="_30_02_2022" translatable="false">30.02.2022</string>
 </resources>
