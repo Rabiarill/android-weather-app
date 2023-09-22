@@ -1,15 +1,19 @@
 package ru.rabiarill.model.weather.forecast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Forecast {
-    private String date;
+    private Date date;
     private Part parts;
 
 
     public String getDate() {
-        return date;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(this.date);
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
