@@ -5,5 +5,9 @@
     <string name="wind_speed">Wind speed:</string>
     <string name="humidity">Humidity:</string>
     <string name="_25_c" translatable="false">25°C</string>
-    <string name="_30_02_2022" translatable="false">30.02.2022</string>
+    <string name="_30_02_2022" translatable="false">28.02.2022</string>
+    <string name="err_msg_recive">Error while receiving data:</string>
+    <string name="wind_speed_unit">m/s</string>
+
+
 </resources>

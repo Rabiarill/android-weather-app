@@ -3,5 +3,7 @@
     <string name="city">Город</string>
     <string name="feels_like">По ощущениям:</string>
     <string name="wind_speed">Скорость ветра:</string>
-    <string name="humidity">Скорость ветра:</string>
+    <string name="humidity">Влажность:</string>
+    <string name="err_msg_recive">Ошибка при получении данных:</string>
+    <string name="wind_speed_unit">м/с</string>
 </resources>
