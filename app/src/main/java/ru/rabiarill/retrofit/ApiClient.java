@@ -7,7 +7,7 @@ import java.util.Date;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.rabiarill.DateTypeAdapter;
+import ru.rabiarill.adapter.DateTypeAdapter;
 
 public class ApiClient {
     private WeatherAPI weatherAPI;

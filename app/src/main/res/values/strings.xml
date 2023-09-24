@@ -7,7 +7,9 @@
     <string name="_25_c" translatable="false">25°C</string>
     <string name="_30_02_2022" translatable="false">28.02.2022</string>
     <string name="err_msg_recive">Error while receiving data:</string>
+    <string name="err_msg_geo">Location not available</string>
     <string name="wind_speed_unit">m/s</string>
+    <string name="geo_not_avalable_show_default_city">Permission not received, default city will be shown</string>
 
 
 </resources>

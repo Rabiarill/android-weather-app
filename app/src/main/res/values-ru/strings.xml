@@ -6,4 +6,6 @@
     <string name="humidity">Влажность:</string>
     <string name="err_msg_recive">Ошибка при получении данных:</string>
     <string name="wind_speed_unit">м/с</string>
+    <string name="err_msg_geo">Геопозиция недоступна</string>
+    <string name="geo_not_avalable_show_default_city">Разрешение не получено, будет показан город по умолчанию</string>
 </resources>
