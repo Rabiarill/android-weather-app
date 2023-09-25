@@ -10,6 +10,10 @@
     <string name="err_msg_geo">Location not available</string>
     <string name="wind_speed_unit">m/s</string>
     <string name="geo_not_avalable_show_default_city">Permission not received, default city will be shown</string>
+    <string name="settings">Settings</string>
+    <string name="settings_message">For the application to work, you must allow access to the settings. Want to go to settings?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

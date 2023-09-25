@@ -8,4 +8,8 @@
     <string name="wind_speed_unit">м/с</string>
     <string name="err_msg_geo">Геопозиция недоступна</string>
     <string name="geo_not_avalable_show_default_city">Разрешение не получено, будет показан город по умолчанию</string>
+    <string name="settings">Настройки приложения</string>
+    <string name="settings_message">Для работы приложения необходимо разрешить доступ к местоположению. Хотите перейти в настройки?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>

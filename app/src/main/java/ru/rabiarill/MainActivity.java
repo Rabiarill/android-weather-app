@@ -2,22 +2,29 @@ package ru.rabiarill;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
@@ -32,8 +39,10 @@ import ru.rabiarill.model.weather.forecast.Day;
 import ru.rabiarill.model.weather.forecast.Forecast;
 import ru.rabiarill.retrofit.ApiClient;
 import ru.rabiarill.retrofit.WeatherService;
+import ru.rabiarill.view_model.WeatherViewModel;
 
 public class MainActivity extends AppCompatActivity implements WeatherDataListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
+    private WeatherViewModel viewModel;
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView mainWeatherImage;
     TextView cityTV;
@@ -48,7 +57,15 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
     private double lat = 59.938; //by default lat and lon of Saint Petersburg
     private double lon = 30.314;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private static final int REQUEST_CODE_SETTINGS = 100;
     LocationManager locationManager;
+
+    public MainActivity() {
+    }
+
+    public MainActivity(int contentLayoutId) {
+        super(contentLayoutId);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
         humidityTV = findViewById(R.id.humidity);
         cards = List.of(findViewById(R.id.card_1), findViewById(R.id.card_2), findViewById(R.id.card_3));
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
+
+        viewModel.getWeatherData().observe(this, new Observer<WeatherData>() {
+            @Override
+            public void onChanged(WeatherData weatherData) {
+                updateUI(weatherData);
+            }
+        });
 
         weatherDataListener = this;
         ApiClient apiClient = new ApiClient();
@@ -118,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
         }
     }
 
-    private void updateImage(String resourceName, ImageView imageViewToUpdate){
+    public void updateImage(String resourceName, ImageView imageViewToUpdate){
         resourceName = resourceName.replace("-", "_");
         Resources resources = getResources();
         final int resourceId = resources.getIdentifier(resourceName, "drawable",
@@ -138,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
                 weatherService.getWeatherData(lat, lon, systemLang);
             } else {
                 Toast.makeText(this, getString(R.string.geo_not_avalable_show_default_city), Toast.LENGTH_LONG).show();
+                showSettingsDialog();
                 weatherService.getWeatherData(lat, lon, systemLang);
             }
         }
@@ -148,6 +175,23 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
         lat = location.getLatitude();
         lon = location.getLongitude();
         weatherService.getWeatherData(lat, lon, systemLang);
+    }
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.settings));
+        builder.setMessage(getString(R.string.settings_message));
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.no), null);
+        builder.show();
     }
 
     @Override
