@@ -33,7 +33,6 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Locale;
 
-import ru.rabiarill.listener.WeatherDataListener;
 import ru.rabiarill.model.weather.WeatherData;
 import ru.rabiarill.model.weather.forecast.Day;
 import ru.rabiarill.model.weather.forecast.Forecast;
@@ -41,7 +40,7 @@ import ru.rabiarill.retrofit.ApiClient;
 import ru.rabiarill.retrofit.WeatherService;
 import ru.rabiarill.view_model.WeatherViewModel;
 
-public class MainActivity extends AppCompatActivity implements WeatherDataListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements LocationListener, SwipeRefreshLayout.OnRefreshListener {
     private WeatherViewModel viewModel;
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView mainWeatherImage;
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
     List<CardView> cards;
     String systemLang;
     private WeatherService weatherService;
-    private WeatherDataListener weatherDataListener;
     private double lat = 59.938; //by default lat and lon of Saint Petersburg
     private double lon = 30.314;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
@@ -91,9 +89,8 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
             }
         });
 
-        weatherDataListener = this;
         ApiClient apiClient = new ApiClient();
-        weatherService = new WeatherService(apiClient.getWeatherAPI(), this, weatherDataListener);
+        weatherService = new WeatherService(apiClient.getWeatherAPI(), this, viewModel);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         systemLang = Locale.getDefault().toString();
 
@@ -108,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements WeatherDataListen
         }
     }
 
-    @Override
     public void updateUI(WeatherData weatherData) {
         updateFactWeather(weatherData);
         updateCards(weatherData);
